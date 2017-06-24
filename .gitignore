@@ -4,3 +4,5 @@ todo.txt
 *.mbtiles
 *.json
 *.geojson
+/node_modules
+/bower_components

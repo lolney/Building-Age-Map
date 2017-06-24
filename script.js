@@ -1,3 +1,6 @@
+var $ = window.jQuery = require("jquery")
+require("jquery-ui")
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9sbmV5IiwiYSI6Il9rMGRGa2cifQ.xtEz-bJjWVzaJBUK2sWBsA';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -23,3 +26,16 @@ map.on("load", function(){
     });
 
 })
+
+$( "#slider-range" ).slider({
+	  range: true,
+	  min: 0,
+	  max: 500,
+	  values: [ 75, 300 ],
+	  slide: function( event, ui ) {
+	    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+	  }
+	});
+
+$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
