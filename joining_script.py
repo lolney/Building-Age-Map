@@ -19,12 +19,12 @@ with open("CityLots.geojson") as fp1, open("Historic_Secured_Property_Tax_Rolls.
 	notfound = 0
 
 	for feature in citylots["features"]:
-		props = feature["properties"]
-		blocklotnum = props["mapblklot"]
+		properties = feature["properties"]
+		blocklotnum = properties["mapblklot"]
 		try:
 			pi = propinfoindexed[blocklotnum]
 			#for column in propinfo.fieldnames:
-			props["Year Property Built"] = pi["Year Property Built"]
+			properties["Year Property Built"] = pi["Year Property Built"]
 		except KeyError:
 			notfound = notfound + 1
 		
