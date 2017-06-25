@@ -1,3 +1,1 @@
-```
-npm run build
-```
+Demo available at https://lolney.github.io/Building-Age-Map/
