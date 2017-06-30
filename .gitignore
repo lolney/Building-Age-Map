@@ -3,6 +3,7 @@ todo.txt
 *.csv
 *.mbtiles
 *.json
+!package.json
 *.geojson
 /node_modules
 npm-debug.log
