@@ -4,25 +4,18 @@
     <meta charset='utf-8' />
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link rel="stylesheet" href="jquery-ui.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="react-input-range/lib/css/index.css">
     <script src='bower_components/jquery/dist/jquery.js'></script>
     <script src='bower_components/jquery-ui/jquery-ui.js'></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; z-index: -1;}
-    </style>
 </head>
 <body>
 
-<p>
-	<label for="amount">Select a year range:</label>
-	<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-</p>
-<div id="slider-range"></div>	
+<div id="app"></div>
 <div id='map'></div>
-<script src='script.js'></script>
+<script src='bundle.js'></script>
 
 </body>
 </html>

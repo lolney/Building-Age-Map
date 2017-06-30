@@ -1,6 +1,10 @@
 /*var $ = window.jQuery = require("jquery")
 require("jquery-ui")*/
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import InputRange from 'react-input-range';
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9sbmV5IiwiYSI6Il9rMGRGa2cifQ.xtEz-bJjWVzaJBUK2sWBsA';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -15,10 +19,41 @@ var ageFilter = function(l,h){
 }
 
 var ageFilterRange = function(range){
-	ageFilter(range['l'].toString(), range['h'].toString());
+	ageFilter(range['min'].toString(), range['max'].toString());
 }
 
-var range = {'l':1860, 'h':1900};
+
+class ExampleApp extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value1: {
+        min: 1900,
+        max: 1920,
+      },
+    };
+
+    ageFilterRange(this.state.value1);
+  }
+
+  render() {
+    return (
+      <form className="form">
+        <InputRange
+          maxValue={2000}
+          minValue={1850}
+          formatLabel={value => `${value} `}
+          value={this.state.value1}
+          onChange={value => {
+            this.setState({ value1: value });
+            ageFilterRange(value);
+        }}
+          onChangeComplete={value => console.log(value)} />
+      </form>
+    );
+  }
+}
 
 map.on("load", function(){
 
@@ -36,23 +71,10 @@ map.on("load", function(){
         }
     });
 
-    $( "#slider-range" ).slider({
-	  range: true,
-	  min: 1850,
-	  max: 2000,
-	  values: [ range['l'], range['h'] ],
-	  slide: function( event, ui ) {
-	    $( "#amount" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-	    range['l'] = ui.values[0];
-	    range['h'] = ui.values[1];
-	    ageFilterRange(range);
-	  }
-	});
-
-	$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +
-	  " - " + $( "#slider-range" ).slider( "values", 1 ) );
-
-	ageFilterRange(range)
+    ReactDOM.render(
+      <ExampleApp />,
+      document.getElementById('app')
+    );
 
 })
 
