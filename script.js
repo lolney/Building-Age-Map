@@ -75,7 +75,7 @@ class Hover extends Component {
             <h1 className='background'></h1>
           </ReactHover.Trigger>
           <ReactHover.Hover>
-            <h1> I am hover HTML </h1>
+            <h1 className='hover'> I am hover HTML </h1>
           </ReactHover.Hover>
         </ReactHover>
       </div>

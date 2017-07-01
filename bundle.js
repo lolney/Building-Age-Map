@@ -24019,7 +24019,7 @@ var Hover = function (_Component) {
             null,
             _react2.default.createElement(
               'h1',
-              null,
+              { className: 'hover' },
               ' I am hover HTML '
             )
           )
