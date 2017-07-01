@@ -1,7 +1,7 @@
 {
-  "main": "script.js",
+  "main": "src/script.js",
   "scripts": {
-    "build": "browserify script.js -t babelify --outfile bundle.js"
+    "build": "browserify src/script.js -t babelify --outfile bundle.js"
   },
   "dependencies": {
     "immutable": "^3.8.1",
