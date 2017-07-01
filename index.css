@@ -27,7 +27,7 @@
   transition: left 0.3s ease-out; }
 
 .input-range__label {
-  color: #aaaaaa;
+  color: #000001;
   font-family: "Helvetica Neue", san-serif;
   font-size: 0.8rem;
   transform: translateZ(0);
