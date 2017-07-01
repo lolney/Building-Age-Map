@@ -33,7 +33,7 @@ var HoverComponent = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { style: { height: '200px', overflowY: 'auto', outline: '1px solid blue', width: '300px', background: '#E8E27E', position: 'absolute' } },
+        { className: 'hover', style: { overflowY: 'auto' } },
         _react2.default.createElement(
           'h1',
           null,
