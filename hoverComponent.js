@@ -17,12 +17,23 @@ export default class HoverComponent extends ReactHover.Hover {
         if(props.coords != null) {console.log("coords not null")};
 
         this.render = this.render.bind(this);
+        this.blank = this.blank.bind(this);
+    }
+
+    blank() {
+        this.setState({
+          address: "",
+          built: ""
+        });
     }
 
     // Better done with react-map-gl?
     componentWillReceiveProps(props) {
         console.log("onMouseMove");
-        if(props.coords == null) {return;}
+        if(props.coords == null) {
+            this.blank();
+            return;
+        }
         let width = 20.0;
         let height = 20.0;
         let features = this.state.map.queryRenderedFeatures([
@@ -31,7 +42,10 @@ export default class HoverComponent extends ReactHover.Hover {
             ],
             {"layers":["building-footprints-vector"]});
 
-        if(features.length < 1) {return;}
+        if(features.length < 1) {
+            this.blank();
+            return;
+        }
         let fprops = features[0].properties;
         this.setState({
           address: [fprops.to_st, fprops.street, fprops.st_type].join(" "),
@@ -40,11 +54,15 @@ export default class HoverComponent extends ReactHover.Hover {
     }
 
     render () {
+        let styles = this.props.styles;
+        styles = styles == null ? {} : styles;
+        
         return (
           <div
           className="hover" 
-          style={{overflowY: 'auto',
-            visibility: ((this.state.address=="" || this.state.built=="") ? "hidden" : "visible")}}>
+          style={Object.assign(styles,
+            {overflowY: 'auto',
+            visibility: ((this.state.address=="" || this.state.built=="") ? "hidden" : "visible")})}>
             <div>
               <h1> {this.state.address} </h1> 
               <p> Built {this.state.built} </p>

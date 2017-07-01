@@ -2,7 +2,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -32,87 +32,96 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var HoverComponent = function (_ReactHover$Hover) {
-  _inherits(HoverComponent, _ReactHover$Hover);
+    _inherits(HoverComponent, _ReactHover$Hover);
 
-  function HoverComponent(props) {
-    _classCallCheck(this, HoverComponent);
+    function HoverComponent(props) {
+        _classCallCheck(this, HoverComponent);
 
-    var _this = _possibleConstructorReturn(this, (HoverComponent.__proto__ || Object.getPrototypeOf(HoverComponent)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (HoverComponent.__proto__ || Object.getPrototypeOf(HoverComponent)).call(this, props));
 
-    _this.state = {
-      address: "",
-      built: "",
-      map: props.map
-    };
+        _this.state = {
+            address: "",
+            built: "",
+            map: props.map
+        };
 
-    if (props.coords != null) {
-      console.log("coords not null");
-    };
+        if (props.coords != null) {
+            console.log("coords not null");
+        };
 
-    _this.render = _this.render.bind(_this);
-    return _this;
-  }
-
-  _createClass(HoverComponent, [{
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      console.log("componentWillUpdate");
+        _this.render = _this.render.bind(_this);
+        _this.blank = _this.blank.bind(_this);
+        return _this;
     }
 
-    // Better done with react-map-gl?
+    _createClass(HoverComponent, [{
+        key: 'blank',
+        value: function blank() {
+            this.setState({
+                address: "",
+                built: ""
+            });
+        }
 
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(props) {
-      console.log("onMouseMove");
-      if (props.coords == null) {
-        return;
-      }
-      var width = 20.0;
-      var height = 20.0;
-      var features = this.state.map.queryRenderedFeatures([[props.coords.x - width / 2, props.coords.y - height / 2], [props.coords.x + width / 2, props.coords.y + height / 2]], { "layers": ["building-footprints-vector"] });
+        // Better done with react-map-gl?
 
-      if (features.length < 1) {
-        return;
-      }
-      var fprops = features[0].properties;
-      this.setState({
-        address: [fprops.to_st, fprops.street, fprops.st_type].join(" "),
-        built: fprops["Year Property Built"]
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        {
-          className: 'hover',
-          style: { overflowY: 'auto',
-            visibility: this.state.address == "" || this.state.built == "" ? "hidden" : "visible" } },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h1',
-            null,
-            ' ',
-            this.state.address,
-            ' '
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            ' Built ',
-            this.state.built,
-            ' '
-          )
-        )
-      );
-    }
-  }]);
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(props) {
+            console.log("onMouseMove");
+            if (props.coords == null) {
+                this.blank();
+                return;
+            }
+            var width = 20.0;
+            var height = 20.0;
+            var features = this.state.map.queryRenderedFeatures([[props.coords.x - width / 2, props.coords.y - height / 2], [props.coords.x + width / 2, props.coords.y + height / 2]], { "layers": ["building-footprints-vector"] });
 
-  return HoverComponent;
+            if (features.length < 1) {
+                this.blank();
+                return;
+            }
+            var fprops = features[0].properties;
+            this.setState({
+                address: [fprops.to_st, fprops.street, fprops.st_type].join(" "),
+                built: fprops["Year Property Built"]
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var styles = this.props.styles;
+            styles = styles == null ? {} : styles;
+
+            return _react2.default.createElement(
+                'div',
+                {
+                    className: 'hover',
+                    style: Object.assign(styles, { overflowY: 'auto',
+                        visibility: this.state.address == "" || this.state.built == "" ? "hidden" : "visible" }) },
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        ' ',
+                        this.state.address,
+                        ' '
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        ' Built ',
+                        this.state.built,
+                        ' '
+                    )
+                )
+            );
+        }
+    }]);
+
+    return HoverComponent;
 }(_reactHover2.default.Hover);
 
 exports.default = HoverComponent;
