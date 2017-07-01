@@ -64,25 +64,6 @@ class AgeFilter extends React.Component {
   }
 }
 
-class Hover extends Component {
-
-  render () {
-    return (
-      <div>
-        <ReactHover
-          options={optionsCursorTrueWithMargin}>
-          <ReactHover.Trigger>
-            <h1 className='background'></h1>
-          </ReactHover.Trigger>
-          <ReactHover.Hover>
-            <HoverComponent />
-          </ReactHover.Hover>
-        </ReactHover>
-      </div>
-    )
-  }
-}
-
 map.on("load", function(){
 
     map.addLayer({
@@ -98,6 +79,81 @@ map.on("load", function(){
             "fill-opacity": 0.7
         }
     });
+
+    class HoverClicker extends ReactHover {
+      constructor(props) {
+        super(props);
+        this.state = {
+          coords : null
+        }
+      }
+
+      getCursorPos(e) {
+        super.getCursorPos(e);
+        this.setState({coords : {x:e.clientX,y:e.clientY}});
+      }
+
+      renderItem (item, index) {
+        if (item.type.name == 'Trigger') {
+          return (
+            <ReactHover.Trigger key={index}>
+              {item}
+            </ReactHover.Trigger>
+          )
+        } else if (item.type.name == 'HoverComponent') {
+          return (
+            <HoverComponent key={index} coords={item.props.coords} map={item.props.map} styles={item.props.styles}>
+            </HoverComponent>
+          )
+        }
+      }
+
+      render() {
+        const { hoverComponentStyle } = this.state
+        let childrenWithProps = [];
+        for (let child of this.props.children) {
+          if (child.type.name == 'Trigger') {
+             childrenWithProps.push(React.cloneElement(child, {
+                setVisibility:this.setVisibility.bind(this),
+                getCursorPos: this.getCursorPos.bind(this)
+              }));
+          } else if(child.type.name == 'HoverComponent') {
+              let clone = React.cloneElement(child, {
+                styles: hoverComponentStyle,
+                coords: this.state.coords
+               });
+               //clone.componentWillReceiveProps(clone.props);
+               childrenWithProps.push(clone);
+          }
+        }
+
+        return (
+          <div>
+            {childrenWithProps.map((item,index) => this.renderItem(item, index))}
+          </div>
+        )
+      }
+
+      // Get cursor position updates state
+      // Send mouse coordinates as prop to hoverComponent
+    }
+
+    class Hover extends Component {
+
+      render () {
+        return (
+          <div>
+            <HoverClicker
+              options={optionsCursorTrueWithMargin}>
+              <ReactHover.Trigger>
+                <h1 className='background'></h1>
+              </ReactHover.Trigger>
+              <HoverComponent map={map}/>
+            </HoverClicker>
+          </div>
+        )
+      }
+    }
 
     ReactDOM.render(
       <div>
