@@ -24017,11 +24017,7 @@ var Hover = function (_Component) {
           _react2.default.createElement(
             _reactHover2.default.Hover,
             null,
-            _react2.default.createElement(
-              'h1',
-              { className: 'hover' },
-              ' I am hover HTML '
-            )
+            _react2.default.createElement(_HoverComponent2.default, null)
           )
         )
       );
