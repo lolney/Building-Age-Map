@@ -1,9 +1,13 @@
 /*var $ = window.jQuery = require("jquery")
 require("jquery-ui")*/
 
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import ReactHover from 'react-hover';
 import InputRange from 'react-input-range';
+import HoverComponent from './HoverComponent';
+import TriggerComponent from './TriggerComponent';
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibG9sbmV5IiwiYSI6Il9rMGRGa2cifQ.xtEz-bJjWVzaJBUK2sWBsA';
 var map = new mapboxgl.Map({
@@ -13,17 +17,13 @@ var map = new mapboxgl.Map({
     zoom: 12 // starting zoom
 });
 
-var ageFilter = function(l,h){
-	var newfilter = ['all', ['>', 'Year Property Built', l], ['<', 'Year Property Built', h]];
-	map.setFilter('building-footprints-vector', newfilter);
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: 20,
+  shiftY: 0
 }
 
-var ageFilterRange = function(range){
-	ageFilter(range['min'].toString(), range['max'].toString());
-}
-
-
-class ExampleApp extends React.Component {
+class AgeFilter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,16 @@ class ExampleApp extends React.Component {
       },
     };
 
-    ageFilterRange(this.state.value1);
+    this.ageFilterRange(this.state.value1);
+  }
+
+  ageFilter(l,h){
+    var newfilter = ['all', ['>', 'Year Property Built', l], ['<', 'Year Property Built', h]];
+    map.setFilter('building-footprints-vector', newfilter);
+  }
+
+  ageFilterRange(range){
+    this.ageFilter(range['min'].toString(), range['max'].toString());
   }
 
   render() {
@@ -47,11 +56,30 @@ class ExampleApp extends React.Component {
           value={this.state.value1}
           onChange={value => {
             this.setState({ value1: value });
-            ageFilterRange(value);
+            this.ageFilterRange(value);
         }}
           onChangeComplete={value => console.log(value)} />
       </form>
     );
+  }
+}
+
+class Hover extends Component {
+
+  render () {
+    return (
+      <div>
+        <ReactHover
+          options={optionsCursorTrueWithMargin}>
+          <ReactHover.Trigger>
+            <h1 className='background'></h1>
+          </ReactHover.Trigger>
+          <ReactHover.Hover>
+            <h1> I am hover HTML </h1>
+          </ReactHover.Hover>
+        </ReactHover>
+      </div>
+    )
   }
 }
 
@@ -72,7 +100,10 @@ map.on("load", function(){
     });
 
     ReactDOM.render(
-      <ExampleApp />,
+      <div>
+        <Hover/> 
+        <AgeFilter/>
+      </div>,
       document.getElementById('app')
     );
 
