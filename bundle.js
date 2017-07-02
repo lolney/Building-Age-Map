@@ -43653,8 +43653,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -43696,8 +43694,39 @@ var HoverHelper = function (_ReactHover) {
   _createClass(HoverHelper, [{
     key: 'getCursorPos',
     value: function getCursorPos(e) {
-      _get(HoverHelper.prototype.__proto__ || Object.getPrototypeOf(HoverHelper.prototype), 'getCursorPos', this).call(this, e);
-      this.setState({ coords: { x: e.clientX, y: e.clientY } });
+      var cursorX = e.pageX;
+      var cursorY = e.pageY;
+      var _props$options = this.props.options,
+          followCursor = _props$options.followCursor,
+          shiftX = _props$options.shiftX,
+          shiftY = _props$options.shiftY;
+      var hoverComponentStyle = this.state.hoverComponentStyle;
+
+      if (!followCursor) {
+        return;
+      }
+      if (isNaN(shiftX)) {
+        shiftX = 0;
+      }
+      if (isNaN(shiftY)) {
+        shiftY = 0;
+      }
+
+      var top = cursorY + shiftY;
+      var left = cursorX + shiftX;
+      var elem = document.getElementsByClassName("hover")[0];
+      var height = parseInt(window.getComputedStyle(elem, null).getPropertyValue("height"));
+      var width = parseInt(window.getComputedStyle(elem, null).getPropertyValue("width"));
+
+      top = top + height > map.clientHeight ? map.clientHeight - height : top;
+      left = left + width > map.clientWidth ? map.clientWidth - width : left;
+
+      var updatedStyles = Object.assign(hoverComponentStyle, { top: top, left: left });
+
+      this.setState({
+        hoverComponentStyle: updatedStyles,
+        coords: { x: cursorX, y: cursorY }
+      });
     }
   }, {
     key: 'render',
