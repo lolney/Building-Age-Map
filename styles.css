@@ -1,12 +1,12 @@
 body { 
-	margin:10px; padding:10;
+  margin:10px; padding:10;
 }
         
 .background {
-	position:absolute;
-	top:0;
-	bottom:0;
-	width:100%;
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100%;
 }
 
 #map {
@@ -18,11 +18,15 @@ body {
 }
 
 .hover {
-  height: 225px;
-  outline: 1px solid blue;
-  width: 225px;
-  background: #E8E27E;
+  height: 75px;
+  width: 300px;
+  background: rgba(200, 35, 100, 0.85);
+  padding: 0px 10px 10px;
+  width: 300px;
+  background: #E8E27hE;
   position: absolute;
+  font-family: "Helvetica Neue", san-serif;
+  font-size: 0.8rem;
 }
 
 .form {
