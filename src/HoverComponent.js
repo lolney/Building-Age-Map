@@ -40,7 +40,7 @@ export default class HoverComponent extends ReactHover.Hover {
               [props.coords.x - width / 2, props.coords.y - height / 2],
               [props.coords.x + width / 2, props.coords.y + height / 2]
             ],
-            {"layers":["building-footprints-vector"]});
+            {"layers":["joinedlotsgeojson"]});
 
         if(features.length < 1) {
             this.blank();

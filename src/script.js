@@ -37,7 +37,7 @@ class AgeFilter extends React.Component {
 
   ageFilter(l,h){
     var newfilter = ['all', ['>', 'Year Property Built', l], ['<', 'Year Property Built', h]];
-    map.setFilter('building-footprints-vector', newfilter);
+    map.setFilter('joinedlotsgeojson', newfilter);
   }
 
   ageFilterRange(range){
@@ -80,20 +80,6 @@ class Hover extends Component {
 }
 
 map.on("load", function(){
-
-    map.addLayer({
-        "id": "building-footprints-vector",
-        "type": "fill",
-        "source": {
-            type: 'vector',
-            url: 'mapbox://lolney.bqk3icqv'
-        },
-        "source-layer": "joinedLotsgeojson",
-        "paint": {
-            "fill-color": "#666666",
-            "fill-opacity": 0.7
-        }
-    });
 
     ReactDOM.render(
       <div>

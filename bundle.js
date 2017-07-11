@@ -43591,7 +43591,7 @@ var HoverComponent = function (_ReactHover$Hover) {
             }
             var width = 20.0;
             var height = 20.0;
-            var features = this.state.map.queryRenderedFeatures([[props.coords.x - width / 2, props.coords.y - height / 2], [props.coords.x + width / 2, props.coords.y + height / 2]], { "layers": ["building-footprints-vector"] });
+            var features = this.state.map.queryRenderedFeatures([[props.coords.x - width / 2, props.coords.y - height / 2], [props.coords.x + width / 2, props.coords.y + height / 2]], { "layers": ["joinedlotsgeojson"] });
 
             if (features.length < 1) {
                 this.blank();
@@ -43714,10 +43714,13 @@ var HoverHelper = function (_ReactHover) {
 
       var top = cursorY + shiftY;
       var left = cursorX + shiftX;
+      // This style could be included in hoverComponentStyle
       var elem = document.getElementsByClassName("hover")[0];
       var height = parseInt(window.getComputedStyle(elem, null).getPropertyValue("height"));
       var width = parseInt(window.getComputedStyle(elem, null).getPropertyValue("width"));
 
+      // Map is only accessible here because it's a global variable in the browserified script
+      // Can't be passed as a prop, for some reason
       top = top + height > map.clientHeight ? map.clientHeight - height : top;
       left = left + width > map.clientWidth ? map.clientWidth - width : left;
 
@@ -43968,7 +43971,7 @@ var AgeFilter = function (_React$Component) {
     key: 'ageFilter',
     value: function ageFilter(l, h) {
       var newfilter = ['all', ['>', 'Year Property Built', l], ['<', 'Year Property Built', h]];
-      map.setFilter('building-footprints-vector', newfilter);
+      map.setFilter('joinedlotsgeojson', newfilter);
     }
   }, {
     key: 'ageFilterRange',
@@ -44038,20 +44041,6 @@ var Hover = function (_Component) {
 }(_react.Component);
 
 map.on("load", function () {
-
-  map.addLayer({
-    "id": "building-footprints-vector",
-    "type": "fill",
-    "source": {
-      type: 'vector',
-      url: 'mapbox://lolney.bqk3icqv'
-    },
-    "source-layer": "joinedLotsgeojson",
-    "paint": {
-      "fill-color": "#666666",
-      "fill-opacity": 0.7
-    }
-  });
 
   _reactDom2.default.render(_react2.default.createElement(
     'div',
