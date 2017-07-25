@@ -1,5 +1,6 @@
-body { 
-  margin:10px; padding:10;
+body {
+  /* margin:10px; */
+  padding:10;
 }
         
 .background {
@@ -18,15 +19,15 @@ body {
 }
 
 .hover {
-  height: 75px;
-  width: 300px;
+  height: 10%;
+  width: 30%;
   background: rgba(200, 35, 100, 0.85);
   padding: 0px 10px 10px;
-  width: 300px;
   background: #E8E27hE;
   position: absolute;
   font-family: "Helvetica Neue", san-serif;
   font-size: 0.8rem;
+  line-height: 100%
 }
 
 .form {
@@ -44,4 +45,96 @@ body {
 .input-range {
   margin-bottom: 30px;
   left-margin: 10px;
+}
+
+
+  .color-1 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#8b0000;
+  display: inline-block;
+}
+  .color-2 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#980214;
+  display: inline-block;
+}
+  .color-3 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#a60723;
+  display: inline-block;
+}
+  .color-4 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#b31130;
+  display: inline-block;
+}
+  .color-5 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#be1c3b;
+  display: inline-block;
+}
+  .color-6 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#ca2745;
+  display: inline-block;
+}
+  .color-7 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#d5334d;
+  display: inline-block;
+}
+  .color-8 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#de3f53;
+  display: inline-block;
+}
+  .color-9 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#e74c56;
+  display: inline-block;
+}
+  .color-10 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#ef5957;
+  display: inline-block;
+}
+  .color-11 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#f56755;
+  display: inline-block;
+}
+  .color-12 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#fb7550;
+  display: inline-block;
+}
+  .color-13 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#ff8545;
+  display: inline-block;
+}
+  .color-14 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#ff9631;
+  display: inline-block;
+}
+  .color-15 {
+  height: 5px;
+  width: 6.666%;
+  background-color:#ffa500;
+  display: inline-block;
 }
